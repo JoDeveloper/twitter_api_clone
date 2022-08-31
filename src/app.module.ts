@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { HashtagsController } from './hashtags/hashtags.controller';
+import { HashtagsController } from './hashtags/controllers/hashtags.controller';
 
 @Module({
   imports: [
