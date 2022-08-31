@@ -1,6 +1,10 @@
-# A Twitter clone 
+# A Twitter clone
 
-Backend Api for Twitter API using nestJs 
+Backend Api for Twitter API using nestJs .
+
+![NodeJS Workflow](https://github.com/JoDeveloper/twitter_api_clone/actions/workflows/nodejs.yml/badge.svg)
+[![DeepSource](https://deepsource.io/gh/JoDeveloper/twitter_api_clone.svg/?label=active+issues&show_trend=true&token=ZAK6LYPxCowffXKqHhnZHsMI)](https://deepsource.io/gh/scaleracademy/twitter-backend-node/?ref=repository-badge)
+
 ## Description
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
@@ -8,7 +12,7 @@ Backend Api for Twitter API using nestJs
 ## Installation
 
 ```bash
-$ npm install
+npm install
 ```
 
 ## Running the app
