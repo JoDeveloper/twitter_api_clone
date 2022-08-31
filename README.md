@@ -1,6 +1,7 @@
 # A Twitter clone
 
 Backend Api for Twitter API using nestJs .
+
 ![NodeJS Workflow](https://github.com/JoDeveloper/twitter_api_clone/actions/workflows/nodejs.yml/badge.svg)
 [![DeepSource](https://deepsource.io/gh/JoDeveloper/twitter_api_clone.svg/?label=active+issues&show_trend=true&token=ZAK6LYPxCowffXKqHhnZHsMI)](https://deepsource.io/gh/scaleracademy/twitter-backend-node/?ref=repository-badge)
 
