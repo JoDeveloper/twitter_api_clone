@@ -1,9 +1,10 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+
+import { Column, Entity } from "typeorm";
+import { AppBaseEntity } from '../../commons/entities/base.entity';
 
 @Entity('users')
-export class UserEntity {
-  @PrimaryGeneratedColumn("uuid")
-  id: number;
+export class UserEntity extends AppBaseEntity {
+
 
   @Column({ length: 50 })
   name: string;
