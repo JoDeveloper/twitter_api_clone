@@ -1,6 +1,8 @@
 import { Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 
 
+@ApiTags('posts')
 @Controller('posts')
 export class PostsController {
   constructor() { }
