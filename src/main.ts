@@ -1,3 +1,4 @@
+import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
@@ -8,6 +9,15 @@ async function bootstrap() {
     AppModule,
     new FastifyAdapter()
   );
+  // validatio
+  app.useGlobalPipes(new ValidationPipe({
+    whitelist: true,
+    transform: true,
+  }));
+
+
+
+  // swagger config
   const config = new DocumentBuilder()
     .setTitle('Cats example')
     .setDescription('The blog API description')
