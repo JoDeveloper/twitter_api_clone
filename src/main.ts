@@ -19,7 +19,7 @@ async function bootstrap() {
     new QueryFailedFilter(reflector),
   );
 
-  // validatio
+  // validation
   app.useGlobalPipes(new ValidationPipe({
     whitelist: true,
     transform: true,
@@ -31,13 +31,13 @@ async function bootstrap() {
 
   // swagger config
   const config = new DocumentBuilder()
-    .setTitle('NestJS  Example App')
+    .setTitle('NestJS  Twitter clone App')
     .setDescription('The App API description')
     .setVersion('1.0')
     .setBasePath('api')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('/docs', app, document);
-  await app.listen(3000);
+  await app.listen(process.env.ADDRESS);
 }
 bootstrap();

@@ -1,8 +1,8 @@
+import { AppBaseEntity } from '../../commons/entities/base.entity'
+import { Entity, JoinColumn, ManyToOne } from 'typeorm'
+import { PostEntity } from '../../posts/entities/post.entity'
+import { UserEntity } from '../../users/entities/user.entity'
 
-import { Entity, JoinColumn, ManyToOne } from 'typeorm';
-import { AppBaseEntity } from '../../commons/entities/base.entity';
-import { PostEntity } from '../../posts/entities/post.entity';
-import { UserEntity } from '../../users/entities/user.entity';
 
 @Entity('likes')
 export class LikesEntity extends AppBaseEntity {
@@ -11,7 +11,6 @@ export class LikesEntity extends AppBaseEntity {
   post: PostEntity;
 
   @ManyToOne(() => UserEntity)
-  @JoinColumn({ name: 'user_id' }) 909
-  
+  @JoinColumn({ name: 'user_id' })
   user: UserEntity;
 }
