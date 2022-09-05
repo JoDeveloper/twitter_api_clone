@@ -2,6 +2,7 @@ import { ConfigModule } from '@nestjs/config'
 import { HashTagModule } from './hashtags/hastag.module'
 import { Module } from '@nestjs/common'
 import { PostModule } from './posts/post.module'
+import { ThrottlerModule } from '@nestjs/throttler'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { UsersModule } from './users/user.module'
 
@@ -25,6 +26,10 @@ import { UsersModule } from './users/user.module'
       }
     }),
     ConfigModule.forRoot({}),
+    ThrottlerModule.forRoot({
+      ttl: 5,
+      limit: 5,
+    }),
     UsersModule,
     PostModule,
     HashTagModule,

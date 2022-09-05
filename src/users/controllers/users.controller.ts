@@ -1,9 +1,19 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Put } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
-import { Observable } from 'rxjs';
-import { CreateUserDto } from '../dtos/user.dto';
-import { UserEntity } from '../entities/user.entity';
-import { UserService } from '../services/user.service';
+import { ApiTags } from '@nestjs/swagger'
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Put
+  } from '@nestjs/common'
+import { CreateUserDto } from '../dtos/user.dto'
+import { Observable } from 'rxjs'
+import { Throttle } from '@nestjs/throttler'
+import { UserEntity } from '../entities/user.entity'
+import { UserService } from '../services/user.service'
 
 
 
@@ -13,11 +23,13 @@ export class UsersController {
   constructor(private _userService: UserService) { }
 
 
+
+  @Throttle(3, 60)
   @Get('/')
   getAllUsers(): Observable<UserEntity[]> | any {
     return this._userService.getAllUsers();
   }
-  
+
 
   @Get('/@:username')
   getUserByUsername(@Param('username') username: string): Observable<UserEntity> | any {

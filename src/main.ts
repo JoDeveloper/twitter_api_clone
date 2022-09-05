@@ -1,9 +1,11 @@
+import helmet from '@fastify/helmet'
 import { AppModule } from './app.module'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify'
 import { NestFactory, Reflector } from '@nestjs/core'
 import { QueryFailedFilter } from './filters/query-failed.filter'
 import { ValidationPipe } from '@nestjs/common'
+
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
@@ -14,6 +16,9 @@ async function bootstrap() {
   }
   );
   const reflector = app.get(Reflector);
+
+  await app.register(helmet);
+
 
   app.useGlobalFilters(
     new QueryFailedFilter(reflector),
