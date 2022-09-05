@@ -27,5 +27,8 @@ export class UserEntity extends AppBaseEntity {
   @Column('boolean', { default: false })
   verified: boolean;
 
+  @Column({ nullable: true })
+  password: string;
+
 
 }

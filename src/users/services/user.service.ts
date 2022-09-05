@@ -1,9 +1,19 @@
-import { HttpException, HttpStatus, Injectable, NotFoundException } from "@nestjs/common";
-import { InjectRepository } from '@nestjs/typeorm';
-import { catchError, from, map, Observable } from 'rxjs';
-import { Repository } from "typeorm";
-import { CreateUserDto } from "../dtos/user.dto";
-import { UserEntity } from '../entities/user.entity';
+import {
+  catchError,
+  from,
+  map,
+  Observable
+  } from 'rxjs'
+import { CreateUserDto } from '../dtos/user.dto'
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  NotFoundException
+  } from '@nestjs/common'
+import { InjectRepository } from '@nestjs/typeorm'
+import { Repository } from 'typeorm'
+import { UserEntity } from '../entities/user.entity'
 
 @Injectable()
 export class UserService {
@@ -17,7 +27,19 @@ export class UserService {
    * getAllUsers() : UserEntity[] | any
    */
   public getAllUsers(): Observable<UserEntity[]> | any {
-    return from(this._userRepository.find({ cache: true }));
+    return from(this._userRepository.find({ cache: true })).pipe(
+      map(users => {
+        users.forEach(user => {
+          delete user.password;
+          delete user.deletedAt;
+          user.username = user.username;
+        });
+        return users;
+      }),
+      catchError(error => {
+        throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+      })
+    );
   }
 
   /**
@@ -25,11 +47,11 @@ export class UserService {
    */
   public getUsersByUserByUserName(username: string): Observable<UserEntity> | HttpException {
     return from(this._userRepository.findOneBy({ username: username })).pipe(
-      map((user: UserEntity) => {
+      map(user => {
         return user;
       }),
-      catchError(() => {
-        throw new NotFoundException("User not found");
+      catchError(error => {
+        throw new NotFoundException(`${error}`);
       })
     );
   }
@@ -40,10 +62,10 @@ export class UserService {
    */
   public getUserById(id: string): Observable<UserEntity> | HttpException {
     return from(this._userRepository.findOneBy({ id: +id })).pipe(
-      map((user: UserEntity) => {
+      map(user => {
         return user;
       }),
-      catchError(() => {
+      catchError(error => {
         throw new NotFoundException(`User ${id} does not exist`);
       })
     );
