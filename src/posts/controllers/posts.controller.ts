@@ -1,11 +1,14 @@
 import { Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { PostService } from '../services/post.service';
 
 
 @ApiTags('posts')
 @Controller('posts')
 export class PostsController {
-  constructor() { }
+  constructor(
+    private service: PostService
+  ) { }
   @Get('/')
   getAllPosts(): string {
     // TODO

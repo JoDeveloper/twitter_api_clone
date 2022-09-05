@@ -1,17 +1,24 @@
 import { HttpException, HttpStatus, Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from '@nestjs/typeorm';
-import { catchError, from, map, Observable, of } from 'rxjs';
+import { catchError, from, map, Observable } from 'rxjs';
+import { Repository } from "typeorm";
 import { CreateUserDto } from "../dtos/user.dto";
 import { UserEntity } from '../entities/user.entity';
-import { UserRepository } from "../repository/user.repository";
 
 @Injectable()
 export class UserService {
 
-  constructor(
-    @InjectRepository(UserRepository)
-    private _userRepository: UserRepository) { }
 
+  constructor(
+    @InjectRepository(UserEntity)
+    private _userRepository: Repository<UserEntity>) { }
+
+  /**
+   * getAllUsers() : UserEntity[] | any
+   */
+  public getAllUsers(): Observable<UserEntity[]> | any {
+    return from(this._userRepository.find({ cache: true }));
+  }
 
   /**
    * getUsersByUserByUserName(username:string): UserEntity | HttpException
@@ -45,12 +52,13 @@ export class UserService {
   /**
    * createNewUser(createUserDto: CreateUserDto): Observable<UserEntity> | HttpException 
    */
-  public createNewUser(createUserDto: CreateUserDto): Observable<UserEntity> | HttpException {
-
-    return of(this._userRepository.create(createUserDto)).pipe(map((user: UserEntity) => user),
-      catchError((error: HttpException) => {
-        throw new HttpException(
-          error.message, HttpStatus.BAD_REQUEST);
+  public createNewUser(createUserDto: CreateUserDto): any {
+    return from(this._userRepository.save(createUserDto)).pipe(
+      map((user: UserEntity) => {
+        return user;
+      }),
+      catchError((error) => {
+        throw new HttpException(`${error.detail}`, HttpStatus.BAD_REQUEST);
       })
     );
   }

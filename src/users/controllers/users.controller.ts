@@ -12,6 +12,13 @@ import { UserService } from '../services/user.service';
 export class UsersController {
   constructor(private _userService: UserService) { }
 
+
+  @Get('/')
+  getAllUsers(): Observable<UserEntity[]> | any {
+    return this._userService.getAllUsers();
+  }
+  
+
   @Get('/@:username')
   getUserByUsername(@Param('username') username: string): Observable<UserEntity> | any {
     return this._userService.getUsersByUserByUserName(username);

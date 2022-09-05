@@ -1,9 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { PostService } from './posts/services/post.service';
 
-import { HashtagsController } from './hashtags/controllers/hashtags.controller';
-import { PostsController } from './posts/controllers/posts.controller';
+import { HashTagModule } from './hashtags/hastag.module';
+import { PostModule } from './posts/post.module';
 import { UsersModule } from './users/user.module';
 
 
@@ -19,12 +18,15 @@ import { UsersModule } from './users/user.module';
       entities: ["dist/**/*.entity{.ts,.js}"],
       synchronize: true,
       logger: "advanced-console",
-      logging: "all"
+      cache: {
+        duration: 120000 // 120 seconds
+      }
     }),
     UsersModule,
+    PostModule,
+    HashTagModule,
   ],
-  controllers: [HashtagsController, PostsController],
-  providers: [
-    PostService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule { }
