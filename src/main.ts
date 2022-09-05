@@ -1,9 +1,9 @@
-import { ValidationPipe } from '@nestjs/common';
-import { NestFactory, Reflector } from '@nestjs/core';
-import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { AppModule } from './app.module';
-import { QueryFailedFilter } from './filters/query-failed.filter';
+import { AppModule } from './app.module'
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
+import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify'
+import { NestFactory, Reflector } from '@nestjs/core'
+import { QueryFailedFilter } from './filters/query-failed.filter'
+import { ValidationPipe } from '@nestjs/common'
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
@@ -23,6 +23,7 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe({
     whitelist: true,
     transform: true,
+    transformOptions: { enableImplicitConversion: true },
     validationError: { target: false },
   }));
 
