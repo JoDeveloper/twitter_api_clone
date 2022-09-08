@@ -11,6 +11,7 @@ import {
   } from '@nestjs/common'
 import { CreateUserDto } from '../dtos/user.dto'
 import { Observable } from 'rxjs'
+import { PostService } from '../../posts/services/post.service'
 import { Throttle } from '@nestjs/throttler'
 import { UserEntity } from '../entities/user.entity'
 import { UserService } from '../services/user.service'
@@ -20,7 +21,10 @@ import { UserService } from '../services/user.service'
 @ApiTags('users')
 @Controller('users')
 export class UsersController {
-  constructor(private _userService: UserService) { }
+  constructor(
+    private _userService: UserService,
+    private _postsService: PostService,
+  ) { }
 
 
 

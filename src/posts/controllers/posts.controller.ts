@@ -39,7 +39,6 @@ export class PostsController {
 
   @Delete('/:postid')
   deletePost(@Param('postid') postid: string): string {
-    // TODO
     return `delete postid = ${postid}`;
   }
 
