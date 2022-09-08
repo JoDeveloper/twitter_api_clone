@@ -12,13 +12,15 @@ import { CreatePostDto } from '../dtos/create-post.dto'
 import { Observable } from 'rxjs'
 import { PostEntity } from '../entities/post.entity'
 import { PostService } from '../services/post.service'
+import { UserService } from '../../users/services/user.service'
 
 
 @ApiTags('posts')
 @Controller('posts')
 export class PostsController {
   constructor(
-    private _postService: PostService
+    private _postService: PostService,
+    private _usersService: UserService,
   ) { }
   @Get('/')
   getAllPosts(): Observable<PostEntity[]> | any {
