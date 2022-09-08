@@ -1,30 +1,38 @@
-import { Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
-import { PostService } from '../services/post.service';
+import { ApiTags } from '@nestjs/swagger'
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put
+  } from '@nestjs/common'
+import { CreatePostDto } from '../dtos/create-post.dto'
+import { Observable } from 'rxjs'
+import { PostEntity } from '../entities/post.entity'
+import { PostService } from '../services/post.service'
 
 
 @ApiTags('posts')
 @Controller('posts')
 export class PostsController {
   constructor(
-    private service: PostService
+    private _postService: PostService
   ) { }
   @Get('/')
-  getAllPosts(): string {
-    // TODO
-    return 'get all posts';
+  getAllPosts(): Observable<PostEntity[]> | any {
+    return this._postService.getAllPosts();
   }
 
   @Get('/:postid')
   getPostDetails(@Param('postid') postid: string): string {
-    // TODO
     return `details of postid = ${postid}`;
   }
 
   @Post('/')
-  createNewPost(): string {
-    // TODO
-    return `new post was created`;
+  createNewPost(@Body() createPostDto: CreatePostDto): Observable<PostEntity> | any {
+    return this._postService.createNewPost(createPostDto);
   }
 
   @Delete('/:postid')

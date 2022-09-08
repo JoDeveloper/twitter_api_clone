@@ -1,6 +1,14 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from 'typeorm';
-import { AppBaseEntity } from '../../commons/entities/base.entity';
-import { UserEntity } from '../../users/entities/user.entity';
+import { AppBaseEntity } from '../../commons/entities/base.entity'
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  OneToOne
+  } from 'typeorm'
+import { LikesEntity } from '../../likes/enitities/likes.entity'
+import { UserEntity } from '../../users/entities/user.entity'
 
 @Entity('posts')
 export class PostEntity extends AppBaseEntity {
@@ -33,6 +41,9 @@ export class PostEntity extends AppBaseEntity {
   @OneToOne(() => PostEntity)
   @JoinColumn({ name: 'reply_to_id' })
   replyTo: PostEntity;
+
+  @OneToMany(() => LikesEntity, (like) => like.post)
+  likes: LikesEntity[]
 }
 
 class Mention {

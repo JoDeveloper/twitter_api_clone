@@ -1,6 +1,8 @@
+import { AppBaseEntity } from '../../commons/entities/base.entity'
+import { Column, Entity, OneToMany } from 'typeorm'
+import { PostEntity } from '../../posts/entities/post.entity'
 
-import { Column, Entity } from "typeorm";
-import { AppBaseEntity } from '../../commons/entities/base.entity';
+
 
 @Entity('users')
 export class UserEntity extends AppBaseEntity {
@@ -29,6 +31,9 @@ export class UserEntity extends AppBaseEntity {
 
   @Column({ nullable: true })
   password: string;
+
+  @OneToMany(() => PostEntity, (post) => post.author)
+  posts: PostEntity[]
 
 
 }

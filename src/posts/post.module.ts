@@ -1,8 +1,8 @@
-import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { PostsController } from './controllers/posts.controller';
-import { PostEntity } from './entities/post.entity';
-import { PostService } from './services/post.service';
+import { Module } from '@nestjs/common'
+import { PostEntity } from './entities/post.entity'
+import { PostsController } from './controllers/posts.controller'
+import { PostService } from './services/post.service'
+import { TypeOrmModule } from '@nestjs/typeorm'
 
 
 @Module({
@@ -11,6 +11,6 @@ import { PostService } from './services/post.service';
   ],
   controllers: [PostsController],
   providers: [PostService],
-  // exports: [PostService]
+  exports: [PostService]
 })
 export class PostModule { };

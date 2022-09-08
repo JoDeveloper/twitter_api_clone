@@ -27,7 +27,7 @@ export class UserService {
    * getAllUsers() : UserEntity[] | any
    */
   public getAllUsers(): Observable<UserEntity[]> | any {
-    return from(this._userRepository.find({ cache: true })).pipe(
+    return from(this._userRepository.find({ cache: true, relations: ['posts.likes'] })).pipe(
       map(users => {
         users.forEach(user => {
           delete user.password;
